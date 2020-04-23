@@ -12,13 +12,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   getBits() {
-    return this.stateService
-      .getBits()
-      .split("")
-      .map((bit) => parseInt(bit));
+    return this.stateService.getBits();
   }
 
-  toogleBit() {
-    console.log(0);
+  toogleBit(index: number) {
+    this.stateService.toggleBit(index);
   }
 }

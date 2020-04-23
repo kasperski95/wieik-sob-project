@@ -1,4 +1,5 @@
-import { app, BrowserWindow, screen, Menu } from "electron";
+import { app, BrowserWindow, screen, Menu, dialog } from "electron";
+import { menu } from "./src/menu";
 import * as path from "path";
 import * as url from "url";
 
@@ -53,22 +54,7 @@ function createWindow(): BrowserWindow {
 
 try {
   app.allowRendererProcessReuse = true;
-  Menu.setApplicationMenu(
-    Menu.buildFromTemplate([
-      {
-        label: "File",
-        submenu: [
-          {
-            label: "Open",
-            click: () => {
-              console.log("clicked open");
-            },
-          },
-          { label: "Generate Report" },
-        ],
-      },
-    ])
-  );
+  Menu.setApplicationMenu(Menu.buildFromTemplate(menu));
 
   // This method will be called when Electron has finished
   // initialization and is ready to create browser windows.
