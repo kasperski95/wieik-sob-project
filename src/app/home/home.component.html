@@ -13,7 +13,7 @@
   </div>
 
   <div class="cell config-output">
-    <app-node type="output">{{ this.storeService.getBitsLength() }}</app-node>
+    <app-node type="output">{{ this.storeService.getCode().length }}</app-node>
   </div>
 
   <div class="cell input">
@@ -40,7 +40,7 @@
 
   <div class="cell errors-r">
     <app-node
-      *ngFor="let bit of getBits(); index as i"
+      *ngFor="let bit of storeService.getCode(); index as i"
       type="valid"
       (toggle)="toogleBit(i)"
       >{{ bit }}</app-node
