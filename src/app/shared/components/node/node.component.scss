@@ -1,7 +1,7 @@
 @use '../../../../theme';
 
 .node {
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: theme.$el-bg-color;
   color: white;
   border-radius: 50%;
   box-shadow: theme.$shadow;
@@ -21,5 +21,13 @@
 
   &--input {
     border: 0.2rem solid theme.$input-indication-color;
+  }
+
+  &--valid {
+    border: 0.2rem solid theme.$success-color;
+  }
+
+  &--invalid {
+    border: 0.2rem solid theme.$danger-color;
   }
 }

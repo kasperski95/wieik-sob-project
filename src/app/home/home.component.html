@@ -4,3 +4,24 @@
   (toggle)="toogleBit(i)"
   >{{ bit }}</app-node
 >
+
+<app-node
+  *ngFor="let bit of getBits(); index as i"
+  type="valid"
+  (toggle)="toogleBit(i)"
+  >{{ bit }}</app-node
+>
+
+<app-node
+  *ngFor="let bit of getBits(); index as i"
+  type="invalid"
+  (toggle)="toogleBit(i)"
+  >{{ bit }}</app-node
+>
+
+<app-node
+  *ngFor="let bit of getBits(); index as i"
+  type="output"
+  (toggle)="toogleBit(i)"
+  >{{ bit }}</app-node
+>
