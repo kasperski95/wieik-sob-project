@@ -1,9 +1,11 @@
+@use '../../../../theme';
+
 .node {
   background-color: rgba(0, 0, 0, 0.25);
   color: white;
   border-radius: 50%;
-  box-shadow: 0 0.2rem 0.25rem rgba(0, 0, 0, 0.5);
-  border: 0.1rem solid white;
+  box-shadow: theme.$shadow;
+  border: 0.1rem solid theme.$text-color;
   width: 3rem;
   height: 3rem;
   overflow: hidden;
@@ -15,5 +17,9 @@
 
   &:focus {
     outline: none;
+  }
+
+  &--input {
+    border: 0.2rem solid theme.$input-indication-color;
   }
 }

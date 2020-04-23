@@ -1,1 +1,3 @@
-<button class="node"><ng-content></ng-content></button>
+<button (click)="toggle.emit()" class="node node--{{ type }}">
+  <ng-content></ng-content>
+</button>

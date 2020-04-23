@@ -1,3 +1,6 @@
-<app-node *ngFor="let bit of getBits(); index as i" (click)="toogleBit(i)">{{
-  bit
-}}</app-node>
+<app-node
+  *ngFor="let bit of getBits(); index as i"
+  type="input"
+  (toggle)="toogleBit(i)"
+  >{{ bit }}</app-node
+>
