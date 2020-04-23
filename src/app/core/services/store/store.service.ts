@@ -66,7 +66,7 @@ export class StoreService {
   }
 
   isCodeValid(invPos: number) {
-    const pos = this.state.errorsInBits.length - 1 - invPos;
+    const pos = this.state.errorsInCode.length - 1 - invPos;
     return !this.state.errorsInCode[pos];
   }
 
@@ -92,26 +92,20 @@ export class StoreService {
 
     const expectedCodeLength = this.getCodeLength();
 
-    for (let i = 0; i < expectedCodeLength - code.length; ++i) {
-      code.push(0);
-    }
+    const actualLen = code.length;
+    for (let i = 0; i < expectedCodeLength - actualLen; ++i) code.push(0);
 
-    let transformedCode = [...this.state.transformedCode];
+    let transformedCode = [...code];
     let errorsInCode = [...this.state.errorsInCode];
 
-    for (let i = 0; i < expectedCodeLength - this.state.transformedCode.length; ++i) {
-      transformedCode.push(0);
-      errorsInCode.push(0);
-    }
+    for (let i = 0; i < expectedCodeLength - errorsInCode.length; ++i) errorsInCode.push(0);
 
-    for (let i = 0; i < this.state.transformedCode.length - expectedCodeLength; ++i) {
-      transformedCode.pop();
-      errorsInCode.pop();
-    }
+    for (let i = 0; i < errorsInCode.length - expectedCodeLength; ++i) errorsInCode.pop();
 
-    this.state.transformedCode = transformedCode;
+    this.state.transformedCode = transformedCode; // transformedCode.map((e, i) => (e ^= errorsInCode[i]));
     this.state.code = code;
     this.state.errorsInCode = errorsInCode;
+    console.log("this.state", this.state);
   }
 
   addMSB() {
