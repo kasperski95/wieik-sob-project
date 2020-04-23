@@ -1,0 +1,17 @@
+@use '../../../../theme';
+
+.error-output {
+  background-image: url("/assets/img/slice1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 9rem;
+  height: 3rem;
+  background-color: theme.$danger-color;
+  background-blend-mode: multiply;
+  border: 0.1rem solid theme.$text-color;
+  box-shadow: theme.$shadow;
+
+  &-active {
+    background-image: url("/assets/img/slice2.png");
+  }
+}

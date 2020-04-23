@@ -23,4 +23,8 @@ export class StoreService {
   toggleMode() {
     this.state.mode = this.state.mode === "0 -> 1" ? "1 -> 0" : "0 -> 1";
   }
+
+  getError() {
+    return true;
+  }
 }

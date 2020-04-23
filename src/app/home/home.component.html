@@ -38,3 +38,5 @@
 <app-box img="Comparator" size="1.5"
   ><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch
 ></app-box>
+
+<app-error-output [showError]="storeService.getError()"></app-error-output>
