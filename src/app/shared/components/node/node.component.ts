@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
   styleUrls: ["./node.component.scss"],
 })
 export class NodeComponent implements OnInit {
-  @Input() type: "input" | "valid" | "invalid" | "output" = "output";
+  @Input() type: "number" | "input" | "valid" | "invalid" | "output" = "output";
   @Output() toggle = new EventEmitter();
   @Output() increase = new EventEmitter();
   @Output() decrease = new EventEmitter();

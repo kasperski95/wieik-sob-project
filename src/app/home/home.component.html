@@ -25,3 +25,10 @@
   (toggle)="toogleBit(i)"
   >{{ bit }}</app-node
 >
+
+<app-node
+  *ngFor="let bit of getBits(); index as i"
+  type="number"
+  (toggle)="toogleBit(i)"
+  >{{ bit }}</app-node
+>

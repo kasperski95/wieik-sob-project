@@ -1,3 +1,11 @@
 <button (click)="toggle.emit()" class="node node--{{ type }}">
-  <ng-content></ng-content>
+  <div (click)="increase.emit()" class="node--overlay node--overlay-increase">
+    +
+  </div>
+  <div (click)="decrease.emit()" class="node--overlay node--overlay-decrease">
+    -
+  </div>
+  <div class="node--content">
+    <ng-content></ng-content>
+  </div>
 </button>
