@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "app-switch",
@@ -6,6 +7,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./switch.component.scss"],
 })
 export class SwitchComponent implements OnInit {
+  @Output() toggle = new EventEmitter();
+
   constructor() {}
 
   ngOnInit(): void {}
