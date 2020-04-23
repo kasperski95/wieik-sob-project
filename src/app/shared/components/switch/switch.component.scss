@@ -1,0 +1,38 @@
+@use '../../../../theme';
+
+:host ::ng-deep .mat-slide-toggle-bar {
+  background-color: theme.$el-bg-color !important;
+}
+
+:host ::ng-deep .mat-slide-toggle-thumb {
+  background-color: theme.$accent-color !important;
+}
+
+:host ::ng-deep .mat-ripple-element {
+  background-color: theme.$accent-color !important;
+}
+
+.mode-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle {
+  margin: 0 1rem;
+}
+
+.mode {
+  width: 3rem;
+  height: 1rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  &--a {
+    background-image: url("/assets/img/1 - 0.png");
+  }
+  &--b {
+    background-image: url("/assets/img/0 - 1.png");
+  }
+}

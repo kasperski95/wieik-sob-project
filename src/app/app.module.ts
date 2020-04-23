@@ -10,6 +10,7 @@ import { SharedModule } from "./shared/shared.module";
 
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -19,6 +20,7 @@ import { HomeComponent } from "./home/home.component";
     HttpClientModule,
     CoreModule,
     SharedModule,
+    MatSlideToggleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
