@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { StateService } from "../core/services";
+import { StoreService } from "../core/services";
 
 @Component({
   selector: "app-home",
@@ -7,15 +7,15 @@ import { StateService } from "../core/services";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  constructor(private stateService: StateService) {}
+  constructor(private storeService: StoreService) {}
 
   ngOnInit(): void {}
 
   getBits() {
-    return this.stateService.getBits();
+    return this.storeService.getBits();
   }
 
   toogleBit(index: number) {
-    this.stateService.toggleBit(index);
+    this.storeService.toggleBit(index);
   }
 }
