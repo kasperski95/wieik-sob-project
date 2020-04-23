@@ -1,11 +1,8 @@
 <div class="grid-wrapper">
   <div class="cell config-input">
-    <app-node
-      type="number"
-      (increase)="this.storeService.addMSB()"
-      (decrease)="this.storeService.removeMSB()"
-      >{{ this.storeService.getBitsLength() }}</app-node
-    >
+    <app-node type="number" (increase)="this.storeService.addMSB()" (decrease)="this.storeService.removeMSB()">{{
+      this.storeService.getBitsLength()
+    }}</app-node>
   </div>
 
   <div class="cell config">
@@ -17,12 +14,7 @@
   </div>
 
   <div class="cell input">
-    <app-node
-      *ngFor="let bit of getBits().reverse(); index as i"
-      type="input"
-      (toggle)="toogleBit(i)"
-      >{{ bit }}</app-node
-    >
+    <app-node *ngFor="let bit of getBits().reverse(); index as i" type="input" (toggle)="toogleBit(i)">{{ bit }}</app-node>
   </div>
 
   <div class="cell count-0">
@@ -31,26 +23,24 @@
 
   <div class="cell errors-l">
     <app-node
-      *ngFor="let bit of getBits(); index as i"
-      type="valid"
-      (toggle)="toogleBit(i)"
+      *ngFor="let bit of storeService.getTransformedBits().reverse(); index as i"
+      [type]="storeService.isBitValid(i) ? 'valid' : 'invalid'"
+      (toggle)="storeService.toggleBitErrors(i)"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell errors-r">
     <app-node
-      *ngFor="let bit of storeService.getCode(); index as i"
-      type="valid"
-      (toggle)="toogleBit(i)"
+      *ngFor="let bit of storeService.getTransformedCode().reverse(); index as i"
+      [type]="storeService.isCodeValid(i) ? 'valid' : 'invalid'"
+      (toggle)="storeService.toggleCodeErrors(i)"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell comparator">
-    <app-box img="Comparator" size="1.5"
-      ><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch
-    ></app-box>
+    <app-box img="Comparator" size="1.5"><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch></app-box>
   </div>
 
   <div class="cell error-output">

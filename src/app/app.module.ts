@@ -14,14 +14,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    CoreModule,
-    SharedModule,
-    MatSlideToggleModule,
-  ],
+  imports: [BrowserModule, FormsModule, HttpClientModule, CoreModule, SharedModule, MatSlideToggleModule],
   providers: [],
   bootstrap: [AppComponent],
 })
