@@ -1,42 +1,59 @@
-<app-node
-  *ngFor="let bit of getBits(); index as i"
-  type="input"
-  (toggle)="toogleBit(i)"
-  >{{ bit }}</app-node
->
+<div class="grid-wrapper">
+  <div class="cell config-input">
+    <app-node
+      type="number"
+      (increase)="this.storeService.addMSB()"
+      (decrease)="this.storeService.removeMSB()"
+      >{{ this.storeService.getBitsLength() }}</app-node
+    >
+  </div>
 
-<app-node
-  *ngFor="let bit of getBits(); index as i"
-  type="valid"
-  (toggle)="toogleBit(i)"
-  >{{ bit }}</app-node
->
+  <div class="cell config">
+    <app-box img="log" size="1.5"></app-box>
+  </div>
 
-<app-node
-  *ngFor="let bit of getBits(); index as i"
-  type="invalid"
-  (toggle)="toogleBit(i)"
-  >{{ bit }}</app-node
->
+  <div class="cell config-output">
+    <app-node type="output">{{ this.storeService.getBitsLength() }}</app-node>
+  </div>
 
-<app-node
-  *ngFor="let bit of getBits(); index as i"
-  type="output"
-  (toggle)="toogleBit(i)"
-  >{{ bit }}</app-node
->
+  <div class="cell input">
+    <app-node
+      *ngFor="let bit of getBits().reverse(); index as i"
+      type="input"
+      (toggle)="toogleBit(i)"
+      >{{ bit }}</app-node
+    >
+  </div>
 
-<app-node
-  *ngFor="let bit of getBits(); index as i"
-  type="number"
-  (toggle)="toogleBit(i)"
-  >{{ bit }}</app-node
->
+  <div class="cell count-0">
+    <app-box img="count0" size="1"></app-box>
+  </div>
 
-<app-box img="log" size="1.5"></app-box>
-<app-box img="count0" size="1"></app-box>
-<app-box img="Comparator" size="1.5"
-  ><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch
-></app-box>
+  <div class="cell errors-l">
+    <app-node
+      *ngFor="let bit of getBits(); index as i"
+      type="valid"
+      (toggle)="toogleBit(i)"
+      >{{ bit }}</app-node
+    >
+  </div>
 
-<app-error-output [showError]="storeService.getError()"></app-error-output>
+  <div class="cell errors-r">
+    <app-node
+      *ngFor="let bit of getBits(); index as i"
+      type="valid"
+      (toggle)="toogleBit(i)"
+      >{{ bit }}</app-node
+    >
+  </div>
+
+  <div class="cell comparator">
+    <app-box img="Comparator" size="1.5"
+      ><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch
+    ></app-box>
+  </div>
+
+  <div class="cell error-output">
+    <app-error-output [showError]="storeService.getError()"></app-error-output>
+  </div>
+</div>

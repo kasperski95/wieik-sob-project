@@ -1,0 +1,68 @@
+.grid-wrapper {
+  display: grid;
+  grid-template-areas:
+    "config-input config  config-output"
+    "input        count-0 .            "
+    "errors-l     .       errors-r     "
+    ". comparator ."
+    ". error-output .";
+  grid-gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cell {
+  background-color: rgba(255, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+}
+
+// left columns
+.config-input,
+.input,
+.errors-l {
+  justify-content: flex-end;
+}
+
+// center columns
+.config,
+.count-0,
+.comparator,
+.error-output {
+  justify-content: center;
+}
+
+.config-input {
+  grid-area: config-input;
+}
+
+.config {
+  grid-area: config;
+}
+
+.config-output {
+  grid-area: config-output;
+}
+
+.input {
+  grid-area: input;
+}
+
+.count-0 {
+  grid-area: count-0;
+}
+
+.errors-l {
+  grid-area: errors-l;
+}
+
+.errors-r {
+  grid-area: errors-r;
+}
+
+.comparator {
+  grid-area: comparator;
+}
+
+.error-output {
+  grid-area: error-output;
+}

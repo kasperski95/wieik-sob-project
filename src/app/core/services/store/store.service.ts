@@ -12,6 +12,10 @@ export class StoreService {
     return this.state.bits;
   }
 
+  getBitsLength() {
+    return this.state.bits.length;
+  }
+
   getMode() {
     return this.state.mode;
   }
@@ -26,5 +30,12 @@ export class StoreService {
 
   getError() {
     return true;
+  }
+
+  addMSB() {
+    this.state.bits.push(0);
+  }
+  removeMSB() {
+    if (this.state.bits.length > 1) this.state.bits.pop();
   }
 }
