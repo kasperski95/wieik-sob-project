@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { StoreService } from "../core/services";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { StoreService, ElectronService } from "../core/services";
+import { IpcRendererEvent } from "electron";
+import { IInputData } from "../core/services/store/IInputData";
 
 @Component({
   selector: "app-home",
@@ -7,7 +9,21 @@ import { StoreService } from "../core/services";
   styleUrls: ["./home.component.scss"],
 })
 export class HomeComponent implements OnInit {
-  constructor(private storeService: StoreService) {}
+  constructor(private storeService: StoreService, private electronService: ElectronService, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.storeService.subscribe(() => {
+      this.cdr.detectChanges();
+    });
+
+    this.electronService.ipcRenderer.on("LOAD_FILE", (event: IpcRendererEvent, { payload: filePath }: { payload: string }) => {
+      this.loadStateFromFile(filePath);
+    });
+  }
+
+  loadStateFromFile(filePath: string) {
+    const rawData = this.electronService.fs.readFileSync(filePath).toString();
+    const data = JSON.parse(rawData) as IInputData;
+    this.storeService.generateState(data);
+  }
 }

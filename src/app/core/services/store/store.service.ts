@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { IInputData } from "./IInputData";
 
 @Injectable({ providedIn: "root" })
 export class StoreService {
@@ -13,8 +14,30 @@ export class StoreService {
     isError: false,
   };
 
+  listeners = [];
+
+  subscribe(listener) {
+    this.listeners.push(listener);
+  }
+
+  notify() {
+    this.listeners.forEach((listener) => listener());
+    console.log(this.state);
+  }
+
+  generateState({ bits, mode, errorsInBits, errorsInCode }: IInputData) {
+    this.state.bits = [...bits];
+    this.state.transformedBits = [...bits].map((e, i) => (e ^= errorsInBits[i]));
+    this.state.mode = mode;
+    this.state.errorsInBits = [...errorsInBits];
+    this.state.errorsInCode = [...errorsInCode.slice(0, this.getCodeLength() - 1)];
+    this.updateCode();
+    this.updateError();
+    this.notify();
+  }
+
   getBits() {
-    return this.state.bits;
+    return [...this.state.bits];
   }
 
   getBitsLength() {
@@ -22,7 +45,7 @@ export class StoreService {
   }
 
   getCode() {
-    return this.state.code;
+    return [...this.state.code];
   }
 
   getCodeLength() {
@@ -38,11 +61,11 @@ export class StoreService {
   }
 
   getTransformedBits() {
-    return this.state.transformedBits;
+    return [...this.state.transformedBits];
   }
 
   getTransformedCode() {
-    return this.state.transformedCode;
+    return [...this.state.transformedCode];
   }
 
   isBitValid(invPos: number) {
@@ -60,6 +83,7 @@ export class StoreService {
     this.state.transformedBits.push(0);
     this.state.errorsInBits.push(0);
     this.updateCode();
+    this.notify();
   }
 
   removeMSB() {
@@ -68,6 +92,7 @@ export class StoreService {
       this.state.transformedBits.pop();
       this.state.errorsInBits.pop();
       this.updateCode();
+      this.notify();
     }
   }
 
@@ -76,6 +101,7 @@ export class StoreService {
     this.state.bits[pos] ^= 1;
     this.state.transformedBits[pos] ^= 1;
     this.updateCode();
+    this.notify();
   }
 
   toggleBitErrors(invPos: number) {
@@ -84,6 +110,7 @@ export class StoreService {
     this.state.errorsInBits[pos] ^= 1;
     this.updateCode();
     this.updateError();
+    this.notify();
   }
 
   toggleCodeErrors(invPos: number) {
@@ -91,14 +118,16 @@ export class StoreService {
     this.state.errorsInCode[pos] ^= 1;
     this.updateCode();
     this.updateError();
+    this.notify();
   }
 
   toggleMode() {
     this.state.mode = this.state.mode === "0 -> 1" ? "1 -> 0" : "0 -> 1";
     this.updateError();
+    this.notify();
   }
 
-  updateCode() {
+  private updateCode() {
     const nZeros = this.state.bits.filter((b) => !b).length;
 
     let code = this.dec2bin(nZeros)
@@ -120,7 +149,7 @@ export class StoreService {
     this.state.transformedCode = [...code].map((e, i) => (e ^= errorsInCode[i]));
   }
 
-  updateError() {
+  private updateError() {
     if (this.state.mode === "0 -> 1")
       this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
     else this.state.isError = this.countZeros(this.state.transformedBits) > parseInt([...this.state.transformedCode].reverse().join(""), 2);
