@@ -10,6 +10,7 @@ export class StoreService {
     transformedBits: [0],
     transformedCode: [1],
     mode: "0 -> 1" as "0 -> 1" | "1 -> 0",
+    isError: false,
   };
 
   getBits() {
@@ -36,7 +37,7 @@ export class StoreService {
   }
 
   getError() {
-    return true;
+    return this.state.isError;
   }
 
   toggleBitErrors(invPos: number) {
@@ -44,12 +45,15 @@ export class StoreService {
     this.state.transformedBits[pos] ^= 1;
     this.state.errorsInBits[pos] ^= 1;
     this.updateCode();
+    this.updateError();
   }
 
   toggleCodeErrors(invPos: number) {
     const pos = this.state.transformedCode.length - 1 - invPos;
-    this.state.transformedCode[pos] ^= 1;
+
     this.state.errorsInCode[pos] ^= 1;
+    this.updateCode();
+    this.updateError();
   }
 
   getTransformedBits() {
@@ -82,6 +86,10 @@ export class StoreService {
     return Math.ceil(Math.log2(this.state.bits.length + 1));
   }
 
+  countZeros(arr: number[]) {
+    return arr.filter((b) => !b).length;
+  }
+
   updateCode() {
     const nZeros = this.state.bits.filter((b) => !b).length;
 
@@ -102,10 +110,16 @@ export class StoreService {
 
     for (let i = 0; i < errorsInCode.length - expectedCodeLength; ++i) errorsInCode.pop();
 
-    this.state.transformedCode = transformedCode; // transformedCode.map((e, i) => (e ^= errorsInCode[i]));
+    errorsInCode;
+    this.state.transformedCode = transformedCode.map((e, i) => (e ^= errorsInCode[i]));
     this.state.code = code;
     this.state.errorsInCode = errorsInCode;
-    console.log("this.state", this.state);
+
+    console.log(this.state);
+  }
+
+  updateError() {
+    this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
   }
 
   addMSB() {
