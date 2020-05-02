@@ -28,6 +28,56 @@ export class HomeComponent implements OnInit {
   loadStateFromFile(filePath: string) {
     const rawData = this.electronService.fs.readFileSync(filePath).toString();
     const data = JSON.parse(rawData) as IInputData;
+
+    // check existence
+    if (!data.bits) {
+      alert('Property "bits" is required.');
+      return;
+    }
+
+    if (!data.errorsInCode) {
+      alert('Property "errorsInCode" is required.');
+      return;
+    }
+
+    if (!data.errorsInBits) {
+      alert('Property "errorsInCode" is required.');
+      return;
+    }
+
+    if (!data.mode) {
+      alert('Property "mode" is required.');
+      return;
+    }
+
+    // bits are bits
+    if (!data.bits.every((bit) => bit === 0 || bit === 1)) {
+      alert('Property "bits" must be an array of 0 or 1.');
+      return;
+    }
+
+    if (!data.errorsInCode.every((bit) => bit === 0 || bit === 1)) {
+      alert('Property "errorsInCode" must be an array of 0 or 1.');
+      return;
+    }
+
+    if (!data.errorsInBits.every((bit) => bit === 0 || bit === 1)) {
+      alert('Property "errorsInBits" must be an array of 0 or 1.');
+      return;
+    }
+
+    // mode is mode
+    if (!(data.mode === "0 -> 1" || data.mode === "1 -> 0")) {
+      alert('Property "mode" must be "0 -> 1" or "1 -> 0".');
+      return;
+    }
+
+    // check shape
+    if (data.bits.length !== data.errorsInBits.length) {
+      alert("Length of bits must be the same as length of errorsInBits.");
+      return;
+    }
+
     this.storeService.generateState(data);
   }
 
