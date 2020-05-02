@@ -4,15 +4,19 @@
     "config-input config  config-output"
     "input        count-0 .            "
     "errors-l     .       errors-r     "
-    ". comparator ."
+    "count-0-again comparator ."
     ". error-output .";
   grid-gap: 1rem;
-  grid-template-columns: 1fr 10rem 1fr;
+  grid-template-columns: 1fr 12rem 1fr;
 }
 
 .cell {
   display: flex;
   align-items: center;
+}
+
+app-box {
+  width: 100%;
 }
 
 // left columns
@@ -64,4 +68,8 @@
 
 .error-output {
   grid-area: error-output;
+}
+
+.count-0-again {
+  grid-area: count-0-again;
 }

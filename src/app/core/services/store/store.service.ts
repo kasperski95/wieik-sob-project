@@ -95,6 +95,7 @@ export class StoreService {
 
   toggleMode() {
     this.state.mode = this.state.mode === "0 -> 1" ? "1 -> 0" : "0 -> 1";
+    this.updateError();
   }
 
   updateCode() {
@@ -120,7 +121,9 @@ export class StoreService {
   }
 
   updateError() {
-    this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
+    if (this.state.mode === "0 -> 1")
+      this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
+    else this.state.isError = this.countZeros(this.state.transformedBits) > parseInt([...this.state.transformedCode].reverse().join(""), 2);
   }
 
   private dec2bin(dec: number) {

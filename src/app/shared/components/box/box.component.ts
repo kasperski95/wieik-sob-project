@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from "@angular/core";
 export class BoxComponent implements OnInit {
   @Input() img: string;
   @Input() size: number;
+  @Input() flipX: boolean;
 
   constructor() {}
 

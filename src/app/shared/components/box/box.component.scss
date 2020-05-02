@@ -4,7 +4,8 @@
   background-color: theme.$el-bg-color;
   border: 0.1rem solid theme.$text-color;
   box-shadow: theme.$shadow;
-  width: 10rem;
+  min-width: 12rem;
+  width: 100%;
   min-height: 6rem;
   padding: 1rem;
   display: inline-flex;
@@ -23,5 +24,9 @@
     background-repeat: no-repeat;
     background-position: center center;
     width: 100%;
+  }
+
+  &--img-flipX {
+    transform: scaleX(-1);
   }
 }
