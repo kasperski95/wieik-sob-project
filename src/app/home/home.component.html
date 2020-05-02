@@ -14,7 +14,12 @@
   </div>
 
   <div class="cell input">
-    <app-node *ngFor="let bit of getBits().reverse(); index as i" type="input" (toggle)="toogleBit(i)">{{ bit }}</app-node>
+    <app-node
+      *ngFor="let bit of this.storeService.getBits().reverse(); index as i"
+      type="input"
+      (toggle)="this.storeService.toggleBit(i)"
+      >{{ bit }}</app-node
+    >
   </div>
 
   <div class="cell count-0">
@@ -23,27 +28,29 @@
 
   <div class="cell errors-l">
     <app-node
-      *ngFor="let bit of storeService.getTransformedBits().reverse(); index as i"
-      [type]="storeService.isBitValid(i) ? 'valid' : 'invalid'"
-      (toggle)="storeService.toggleBitErrors(i)"
+      *ngFor="let bit of this.storeService.getTransformedBits().reverse(); index as i"
+      [type]="this.storeService.isBitValid(i) ? 'valid' : 'invalid'"
+      (toggle)="this.storeService.toggleBitErrors(i)"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell errors-r">
     <app-node
-      *ngFor="let bit of storeService.getTransformedCode().reverse(); index as i"
-      [type]="storeService.isCodeValid(i) ? 'valid' : 'invalid'"
-      (toggle)="storeService.toggleCodeErrors(i)"
+      *ngFor="let bit of this.storeService.getTransformedCode().reverse(); index as i"
+      [type]="this.storeService.isCodeValid(i) ? 'valid' : 'invalid'"
+      (toggle)="this.storeService.toggleCodeErrors(i)"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell comparator">
-    <app-box img="Comparator" size="1.5"><app-switch [mode]="getMode()" (toggle)="toggleMode()"> </app-switch></app-box>
+    <app-box img="Comparator" size="1.5"
+      ><app-switch [mode]="this.storeService.getMode()" (toggle)="this.storeService.toggleMode()"> </app-switch
+    ></app-box>
   </div>
 
   <div class="cell error-output">
-    <app-error-output [showError]="storeService.getError()"></app-error-output>
+    <app-error-output [showError]="this.storeService.getError()"></app-error-output>
   </div>
 </div>

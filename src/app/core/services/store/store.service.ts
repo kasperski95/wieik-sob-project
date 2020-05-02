@@ -21,39 +21,20 @@ export class StoreService {
     return this.state.bits.length;
   }
 
-  getMode() {
-    return this.state.mode;
+  getCode() {
+    return this.state.code;
   }
 
-  toggleBit(invPos: number) {
-    const pos = this.state.bits.length - 1 - invPos;
-    this.state.bits[pos] ^= 1;
-    this.state.transformedBits[pos] ^= 1;
-    this.updateCode();
-  }
-
-  toggleMode() {
-    this.state.mode = this.state.mode === "0 -> 1" ? "1 -> 0" : "0 -> 1";
+  getCodeLength() {
+    return Math.ceil(Math.log2(this.state.bits.length + 1));
   }
 
   getError() {
     return this.state.isError;
   }
 
-  toggleBitErrors(invPos: number) {
-    const pos = this.state.transformedBits.length - 1 - invPos;
-    this.state.transformedBits[pos] ^= 1;
-    this.state.errorsInBits[pos] ^= 1;
-    this.updateCode();
-    this.updateError();
-  }
-
-  toggleCodeErrors(invPos: number) {
-    const pos = this.state.transformedCode.length - 1 - invPos;
-
-    this.state.errorsInCode[pos] ^= 1;
-    this.updateCode();
-    this.updateError();
+  getMode() {
+    return this.state.mode;
   }
 
   getTransformedBits() {
@@ -74,54 +55,6 @@ export class StoreService {
     return !this.state.errorsInCode[pos];
   }
 
-  dec2bin(dec: number) {
-    return (dec >>> 0).toString(2);
-  }
-
-  getCode() {
-    return this.state.code;
-  }
-
-  getCodeLength() {
-    return Math.ceil(Math.log2(this.state.bits.length + 1));
-  }
-
-  countZeros(arr: number[]) {
-    return arr.filter((b) => !b).length;
-  }
-
-  updateCode() {
-    const nZeros = this.state.bits.filter((b) => !b).length;
-
-    let code = this.dec2bin(nZeros)
-      .split("")
-      .map((n) => parseInt(n))
-      .reverse();
-
-    const expectedCodeLength = this.getCodeLength();
-
-    const actualLen = code.length;
-    for (let i = 0; i < expectedCodeLength - actualLen; ++i) code.push(0);
-
-    let transformedCode = [...code];
-    let errorsInCode = [...this.state.errorsInCode];
-
-    for (let i = 0; i < expectedCodeLength - errorsInCode.length; ++i) errorsInCode.push(0);
-
-    for (let i = 0; i < errorsInCode.length - expectedCodeLength; ++i) errorsInCode.pop();
-
-    errorsInCode;
-    this.state.transformedCode = transformedCode.map((e, i) => (e ^= errorsInCode[i]));
-    this.state.code = code;
-    this.state.errorsInCode = errorsInCode;
-
-    console.log(this.state);
-  }
-
-  updateError() {
-    this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
-  }
-
   addMSB() {
     this.state.bits.push(0);
     this.state.transformedBits.push(0);
@@ -136,5 +69,65 @@ export class StoreService {
       this.state.errorsInBits.pop();
       this.updateCode();
     }
+  }
+
+  toggleBit(invPos: number) {
+    const pos = this.state.bits.length - 1 - invPos;
+    this.state.bits[pos] ^= 1;
+    this.state.transformedBits[pos] ^= 1;
+    this.updateCode();
+  }
+
+  toggleBitErrors(invPos: number) {
+    const pos = this.state.transformedBits.length - 1 - invPos;
+    this.state.transformedBits[pos] ^= 1;
+    this.state.errorsInBits[pos] ^= 1;
+    this.updateCode();
+    this.updateError();
+  }
+
+  toggleCodeErrors(invPos: number) {
+    const pos = this.state.transformedCode.length - 1 - invPos;
+    this.state.errorsInCode[pos] ^= 1;
+    this.updateCode();
+    this.updateError();
+  }
+
+  toggleMode() {
+    this.state.mode = this.state.mode === "0 -> 1" ? "1 -> 0" : "0 -> 1";
+  }
+
+  updateCode() {
+    const nZeros = this.state.bits.filter((b) => !b).length;
+
+    let code = this.dec2bin(nZeros)
+      .split("")
+      .map((n) => parseInt(n))
+      .reverse();
+
+    const expectedCodeLength = this.getCodeLength();
+    const actualLen = code.length;
+
+    for (let i = 0; i < expectedCodeLength - actualLen; ++i) code.push(0);
+
+    let errorsInCode = [...this.state.errorsInCode];
+    for (let i = 0; i < expectedCodeLength - errorsInCode.length; ++i) errorsInCode.push(0);
+    for (let i = 0; i < errorsInCode.length - expectedCodeLength; ++i) errorsInCode.pop();
+
+    this.state.code = code;
+    this.state.errorsInCode = errorsInCode;
+    this.state.transformedCode = [...code].map((e, i) => (e ^= errorsInCode[i]));
+  }
+
+  updateError() {
+    this.state.isError = this.countZeros(this.state.transformedBits) < parseInt([...this.state.transformedCode].reverse().join(""), 2);
+  }
+
+  private dec2bin(dec: number) {
+    return (dec >>> 0).toString(2);
+  }
+
+  private countZeros(arr: number[]) {
+    return arr.filter((b) => !b).length;
   }
 }
