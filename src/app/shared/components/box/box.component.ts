@@ -9,6 +9,10 @@ export class BoxComponent implements OnInit {
   @Input() img: string;
   @Input() size: number;
   @Input() flipX: boolean;
+  @Input() lineT: number;
+  @Input() lineR: number;
+  @Input() lineB: number;
+  @Input() lineL: number;
 
   constructor() {}
 

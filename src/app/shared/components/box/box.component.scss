@@ -1,32 +1,65 @@
 @use '../../../../theme';
 
-.box {
-  background-color: theme.$el-bg-color;
-  border: 0.1rem solid theme.$text-color;
-  box-shadow: theme.$shadow;
-  min-width: 12rem;
+.wrapper {
   width: 100%;
-  min-height: 6rem;
-  padding: 1rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  flex-direction: column;
+  height: 100%;
+  position: relative;
 
-  &--content:not(:empty) {
+  .box {
+    background-color: theme.$el-bg-color;
+    border: 0.1rem solid theme.$text-color;
+    box-shadow: theme.$shadow;
+    min-width: 12rem;
     width: 100%;
-    padding-bottom: 1rem;
+    min-height: 6rem;
+    padding: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    flex-direction: column;
+
+    &--content:not(:empty) {
+      width: 100%;
+      padding-bottom: 1rem;
+    }
+
+    &--img {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      width: 100%;
+    }
+
+    &--img-flipX {
+      transform: scaleX(-1);
+    }
   }
 
-  &--img {
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    width: 100%;
-  }
+  .line {
+    background-color: theme.$text-color;
+    position: absolute;
 
-  &--img-flipX {
-    transform: scaleX(-1);
+    &--T,
+    &--B {
+      width: 0.125rem;
+      left: 50%;
+    }
+
+    &--L {
+      left: 0;
+      transform: translate(-100%, -50%);
+    }
+
+    &--R {
+      right: 0;
+      transform: translate(100%, -50%);
+    }
+
+    &--L,
+    &--R {
+      height: 0.125rem;
+      top: 50%;
+    }
   }
 }

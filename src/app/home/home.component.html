@@ -1,6 +1,6 @@
 <div class="grid-wrapper">
   <div class="cell config-input">
-    <app-node type="number" (increase)="this.storeService.addMSB()" (decrease)="this.storeService.removeMSB()">{{
+    <app-node type="number" (increase)="this.storeService.addMSB()" (decrease)="this.storeService.removeMSB()" lineR="2">{{
       this.storeService.getBitsLength()
     }}</app-node>
   </div>
@@ -10,20 +10,21 @@
   </div>
 
   <div class="cell config-output">
-    <app-node type="output">{{ this.storeService.getCode().length }}</app-node>
+    <app-node type="output" lineL="2">{{ this.storeService.getCode().length }}</app-node>
   </div>
 
   <div class="cell input">
     <app-node
       *ngFor="let bit of this.storeService.getBits().reverse(); index as i"
       type="input"
+      lineB="3.5"
       (toggle)="this.storeService.toggleBit(i)"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell count-0">
-    <app-box img="count0" size="1"></app-box>
+    <app-box img="count0" size="1" lineL="2" [lineR]="this.storeService.getCode().length * 3 + 0.5"></app-box>
   </div>
 
   <div class="cell errors-l">
@@ -31,6 +32,7 @@
       *ngFor="let bit of this.storeService.getTransformedBits().reverse(); index as i"
       [type]="this.storeService.isBitValid(i) ? 'valid' : 'invalid'"
       (toggle)="this.storeService.toggleBitErrors(i)"
+      lineB="2.25"
       >{{ bit }}</app-node
     >
   </div>
@@ -40,16 +42,23 @@
       *ngFor="let bit of this.storeService.getTransformedCode().reverse(); index as i"
       [type]="this.storeService.isCodeValid(i) ? 'valid' : 'invalid'"
       (toggle)="this.storeService.toggleCodeErrors(i)"
+      lineT="5"
+      lineB="5.1"
       >{{ bit }}</app-node
     >
   </div>
 
   <div class="cell count-0-again">
-    <app-box img="count0" size="1"></app-box>
+    <app-box img="count0" size="1" lineR="2"></app-box>
   </div>
 
   <div class="cell comparator">
-    <app-box [flipX]="this.storeService.getMode() === '1 -> 0'" img="Comparator" size="1.5"
+    <app-box
+      [flipX]="this.storeService.getMode() === '1 -> 0'"
+      img="Comparator"
+      size="1.5"
+      lineB="2"
+      [lineR]="this.storeService.getCode().length * 3 + 0.5"
       ><app-switch (toggle)="this.storeService.toggleMode()"> </app-switch
     ></app-box>
   </div>

@@ -1,11 +1,17 @@
-<button (click)="toggle.emit()" class="node node--{{ type }}">
-  <div (click)="increase.emit()" class="node--overlay node--overlay-increase">
-    +
-  </div>
-  <div (click)="decrease.emit()" class="node--overlay node--overlay-decrease">
-    -
-  </div>
-  <div class="node--content">
-    <ng-content></ng-content>
-  </div>
-</button>
+<div class="wrapper">
+  <button (click)="toggle.emit()" class="node node--{{ type }}">
+    <div (click)="increase.emit()" class="node--overlay node--overlay-increase">
+      +
+    </div>
+    <div (click)="decrease.emit()" class="node--overlay node--overlay-decrease">
+      -
+    </div>
+    <div class="node--content">
+      <ng-content></ng-content>
+    </div>
+  </button>
+  <div class="line line--T" style="height: {{ this.lineT }}em"></div>
+  <div class="line line--B" style="height: {{ this.lineB }}em"></div>
+  <div class="line line--L" style="width: {{ this.lineL }}em"></div>
+  <div class="line line--R" style="width: {{ this.lineR }}em"></div>
+</div>

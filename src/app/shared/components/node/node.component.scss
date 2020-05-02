@@ -1,79 +1,122 @@
 @use '../../../../theme';
 
-.node {
-  background-color: theme.$el-bg-color;
-  color: white;
-  border-radius: 50%;
-  box-shadow: theme.$shadow;
-  border: 0.1rem solid theme.$text-color;
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  line-height: 0;
+.wrapper {
+  width: 100%;
+  height: 100%;
   position: relative;
-  cursor: pointer;
 
-  &:focus {
-    outline: none;
-  }
+  .node {
+    background-color: theme.$el-bg-color;
+    color: white;
+    border-radius: 50%;
+    box-shadow: theme.$shadow;
+    border: 0.1rem solid theme.$text-color;
+    width: 3rem;
+    height: 3rem;
+    overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: 0;
+    position: relative;
+    cursor: pointer;
 
-  &--number {
-    border: 0.2rem solid theme.$input-indication-color;
-
-    .node--overlay {
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 50%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: none;
-      border-bottom: 1px solid theme.$text-color;
-
-      &-decrease {
-        top: 50%;
-        border-bottom: 0;
-      }
+    &:focus {
+      outline: none;
     }
 
-    &:hover {
-      .node--overlay {
-        display: flex;
-        opacity: 0.5;
+    &--number {
+      border: 0.2rem solid theme.$input-indication-color;
 
-        &:hover {
-          opacity: 1;
+      .node--overlay {
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: none;
+        border-bottom: 1px solid theme.$text-color;
+
+        &-decrease {
+          top: 50%;
+          border-bottom: 0;
         }
       }
 
-      .node--content {
-        display: none;
+      &:hover {
+        .node--overlay {
+          display: flex;
+          opacity: 0.5;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+
+        .node--content {
+          display: none;
+        }
       }
+    }
+
+    &--input {
+      border: 0.2rem solid theme.$input-indication-color;
+    }
+
+    &--valid {
+      border: 0.2rem solid theme.$success-color;
+    }
+
+    &--invalid {
+      border: 0.2rem solid theme.$danger-color;
+    }
+
+    &--overlay {
+      display: none;
+    }
+
+    &--output {
+      cursor: default;
     }
   }
 
-  &--input {
-    border: 0.2rem solid theme.$input-indication-color;
-  }
+  .line {
+    background-color: theme.$text-color;
+    position: absolute;
 
-  &--valid {
-    border: 0.2rem solid theme.$success-color;
-  }
+    &--T {
+      top: 0;
+      transform: translate(-50%, -100%);
+    }
 
-  &--invalid {
-    border: 0.2rem solid theme.$danger-color;
-  }
+    &--B {
+      bottom: 0;
+      transform: translate(-50%, 100%);
+    }
 
-  &--overlay {
-    display: none;
-  }
+    &--T,
+    &--B {
+      width: 0.08rem;
+      left: 50%;
+    }
 
-  &--output {
-    cursor: default;
+    &--L {
+      left: 0;
+      transform: translate(-100%, -50%);
+    }
+
+    &--R {
+      right: 0;
+      transform: translate(100%, -50%);
+    }
+
+    &--L,
+    &--R {
+      height: 0.08rem;
+      top: 50%;
+    }
   }
 }
