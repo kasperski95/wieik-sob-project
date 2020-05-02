@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { IInputData } from "./IInputData";
+import asTable from "as-table";
 
 @Injectable({ providedIn: "root" })
 export class StoreService {
@@ -34,6 +35,17 @@ export class StoreService {
     this.updateCode();
     this.updateError();
     this.notify();
+  }
+
+  generateReport() {
+    return asTable([
+      ["Input Bits: ", this.state.bits],
+      ["Errors in Input Bits:", this.state.errorsInBits],
+      ["Generated Code: ", this.state.code],
+      ["Errors in the Code:", this.state.errorsInCode],
+      ["Mode:", this.state.mode],
+      ["Error:", this.state.isError],
+    ]);
   }
 
   getBits() {
